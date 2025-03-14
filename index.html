@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C'est bientôt...</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f0f0f0, #d52b1e);
+            color: white;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 10px;
+        }
+
+        h1 {
+            font-size: 2vw;
+            margin-bottom: 10px;
+        }
+
+        .countdown {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            font-size: 2vw;
+            font-weight: bold;
+            text-transform: uppercase;
+            max-width: 90%;
+        }
+
+        .countdown div {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 2vw;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            min-width: 8vw;
+        }
+
+        .label {
+            font-size: 1.5vw;
+            opacity: 0.8;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 6vw;
+            }
+
+            .countdown {
+                font-size: 5vw;
+                gap: 10px;
+            }
+
+            .countdown div {
+                min-width: 20vw;
+                padding: 4vw;
+            }
+
+            .label {
+                font-size: 3vw;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown">
+        <div>
+            <span id="weeks">00</span>
+            <div class="label">Semaines</div>
+        </div>
+        <div>
+            <span id="days">00</span>
+            <div class="label">Jours</div>
+        </div>
+        <div>
+            <span id="hours">00</span>
+            <div class="label">Heures</div>
+        </div>
+        <div>
+            <span id="minutes">00</span>
+            <div class="label">Minutes</div>
+        </div>
+        <div>
+            <span id="seconds">00</span>
+            <div class="label">Secondes</div>
+        </div>
+        <div>
+            <span id="dodos">00</span>
+            <div class="label">dodos 😴</div>
+        </div>
+    </div>
+
+    <script>
+        function updateCountdown() {
+            const targetDate = new Date("June 14, 2025 09:45:00").getTime();
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+
+            if (difference < 0) {
+                document.querySelector(".countdown").innerHTML = "<h2>Enfin !!</h2>";
+                return;
+            }
+
+            const weeks = Math.floor(difference / (1000 * 60 * 60 * 24 * 7));
+            const days = Math.floor((difference % (1000 * 60 * 60 * 24 * 7)) / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            const dodos = Math.ceil(difference / (1000 * 60 * 60 * 24));
+
+            document.getElementById("weeks").innerText = weeks.toString().padStart(2, '0');
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+            document.getElementById("dodos").innerText = dodos.toString().padStart(2, '0');
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+    </script>
+
+</body>
+</html>
